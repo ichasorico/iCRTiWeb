@@ -61,10 +61,10 @@
 
 </plugins>
 
-    <testSourceDirectory>src/test/java</testSourceDirectory>      
+    <testSourceDirectory>src/main/test</testSourceDirectory>      
     <testResources>
       <testResource>
-        <directory>src/test/java</directory>
+        <directory>src/main/test</directory>
       </testResource>
     </testResources>
     
