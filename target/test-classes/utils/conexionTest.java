@@ -2,11 +2,13 @@ package utils;
 
 import static org.junit.Assert.*;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -52,15 +54,20 @@ public class conexionTest {
 	    @Before	    
 	    public void initialize()	     
 	    {
-	    	
-	    	String url = "jdbc:mysql://localhost:3306/icrti.testing";
-	    	String username = "root";
-	    	String password = "asteroide";
+	    	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+	    	Properties properties = new Properties();
+
 	    	try  {
-	    		Connection connection = DriverManager.getConnection(url, username, password);
-	    		sentencia = connection.createStatement();
-	    	}catch(Exception e){
+//	    		Connection connection = DriverManager.getConnection(url, username, password);
+	    		InputStream input = classLoader.getResourceAsStream("system_icrti.properties");
+	    		properties.load(input);
 	    		
+				Class.forName (properties.getProperty("driverClassName")).newInstance ();			
+				Connection connection = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));			
+				sentencia = connection.createStatement();
+	    	}catch(Exception e){
+	    		System.out.println("url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
+    			System.out.println(e.toString());
 	    	}	    	
 	    }
 	    

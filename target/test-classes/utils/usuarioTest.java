@@ -5,11 +5,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -52,14 +55,17 @@ public class usuarioTest {
 	     
 	    {
 
-	    	String url = "jdbc:mysql://localhost:3306/icrti.testing";
-	    	String username = "root";
-	    	String password = "asteroide";
+	    	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+	    	Properties properties = new Properties();
 
 
 	    	try  {
-	    		Connection connection = DriverManager.getConnection(url, username, password);
-	    		sentencia = connection.createStatement();
+	    		InputStream input = classLoader.getResourceAsStream("system_icrti.properties");
+	    		properties.load(input);
+	    		
+				Class.forName (properties.getProperty("driverClassName")).newInstance ();			
+				Connection connection = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));			
+				sentencia = connection.createStatement();
 	    		// OBTENEMOS idUsuario PARA USUARIO1
 	    		String sql = "select * from usuarios where nombre = '" + usuario1 +"'";
 	    		ResultSet resultado = sentencia.executeQuery(sql);
@@ -108,7 +114,19 @@ public class usuarioTest {
 
 	    	} catch (SQLException e) {
 	    	    throw new IllegalStateException("Cannot connect the database!", e);
-	    	}			
+	    	} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (InstantiationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IllegalAccessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}			
 
 	    	
 
