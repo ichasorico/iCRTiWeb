@@ -57,8 +57,25 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
-      
-
+      <!--  GESTIÓN DE LA CONFIGUACIÓN ENTORNO DE DESARROLLO -->
+         <plugin>
+           <artifactId>maven-antrun-plugin</artifactId>
+           <executions>
+             <execution>
+               <phase>test</phase>
+               <goals>
+                 <goal>run</goal>
+               </goals>
+               <configuration>
+                 <tasks>
+                   <delete file="${project.build.outputDirectory}/system_icrti.properties"/>
+                   <copy file="src/main/resources/system_icrti.dev.properties"
+                         tofile="${project.build.outputDirectory}/system_icrti.properties"/>
+                 </tasks>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
 </plugins>
 
     <testSourceDirectory>src/main/test</testSourceDirectory>      
