@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>iCRTiWev</groupId>
+  <artifactId>iCRTiWeb</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>iCRTiWeb Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <organization>
+  	<name>iCRTi Consulting S.L.</name>
+  	<url>www.icrti.es</url>
+  </organization>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>javax.servlet-api</artifactId>
+    	<version>3.0.1</version>
+    </dependency>
+    <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>5.1.6</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.sonarsource.scanner.maven</groupId>
+    	<artifactId>sonar-maven-plugin</artifactId>
+    	<version>3.0.1</version>
+    	<type>maven-plugin</type>
+    </dependency>
+  </dependencies>
+ <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <build>
+    <finalName>iCRTiWeb</finalName>
+
+ <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <warSourceDirectory>WebContent</warSourceDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <encoding>UTF-8</encoding>
+          <excludes>**/*Test.java</excludes>
+        </configuration>
+      </plugin>
+</plugins>
+  </build>
+  
+     
+
+    
+  <ciManagement>
+  	<url>https:/trabajo/jenkins</url>
+  	<system>iCRTi Local</system>
+  </ciManagement>
+  <scm>
+  	<url>https://ichasorico:asteroidE0792@github.com/ichasorico/iCRTiWeb.git</url>
+  	<developerConnection>iCRTi Consulting S.L.</developerConnection>
+  </scm>
+</project>
