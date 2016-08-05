@@ -60,6 +60,15 @@
       
 
 </plugins>
+
+    <testSourceDirectory>src/test/java</testSourceDirectory>      
+    <testResources>
+      <testResource>
+        <directory>src/test/java</directory>
+      </testResource>
+    </testResources>
+    
+    
   </build>
   
      
