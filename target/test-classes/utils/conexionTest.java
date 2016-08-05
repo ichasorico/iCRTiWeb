@@ -65,6 +65,7 @@ public class conexionTest {
 				Class.forName (properties.getProperty("driverClassName")).newInstance ();			
 				Connection connection = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));			
 				sentencia = connection.createStatement();
+				System.out.println("TEST!!::conexionTest::initialize -> Conexión a la BBDD realizada:  url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
 	    	}catch(Exception e){
 	    		System.out.println("url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
     			System.out.println(e.toString());

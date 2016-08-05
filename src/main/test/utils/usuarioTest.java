@@ -66,6 +66,7 @@ public class usuarioTest {
 				Class.forName (properties.getProperty("driverClassName")).newInstance ();			
 				Connection connection = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));			
 				sentencia = connection.createStatement();
+				System.out.println("TEST!!::usuarioTest::initialize -> Conexión a la BBDD realizada:  url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
 	    		// OBTENEMOS idUsuario PARA USUARIO1
 	    		String sql = "select * from usuarios where nombre = '" + usuario1 +"'";
 	    		ResultSet resultado = sentencia.executeQuery(sql);
