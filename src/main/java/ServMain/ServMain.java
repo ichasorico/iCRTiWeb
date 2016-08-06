@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import javax.naming.Context;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,9 +25,8 @@ import utils.usuario;
 @WebServlet(description = "Servlet principal", urlPatterns = { "/ServMain" })
 
 public class ServMain extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
-	//private static List<usuario> sesiones = new ArrayList <usuario>();
-	
 	private static String cfgIdSevidor = "tomcatId4Persistencia";	
 	private static String cfgValidezTimeStamp = "validezTimeStamp";
 	private static  String idSevidor = "";
@@ -79,12 +77,9 @@ public class ServMain extends HttpServlet {
     	Properties properties = new Properties();
 
     	
-		Context envContext;
+
 		try {
 			properties.load(input);
-			// ctx = new InitialContext();
-			// envContext = (Context) ctx.lookup("java:comp/env");
-			// DataSource ds = (DataSource) envContext.lookup("jdbc/sqlLocal");
 			Class.forName (properties.getProperty("driverClassName")).newInstance ();			
 			conn = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));			
 			System.out.println("ServMain::INIT  -- CONEXIÓN A LA BBDD REALIZADA" + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password"));    	
@@ -97,9 +92,9 @@ public class ServMain extends HttpServlet {
 			e1.printStackTrace();
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println("ServMain::INIT  -- ERROR AL ESTABLECER driverClassName DESDE FICHERO PROPERTIES ");
-			System.out.println("ServMain::INIT  -- " + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password"));
+			System.out.println("ServMain::INIT  -- ERROR AL ESTABLECER driverClassName DESDE FICHERO PROPERTIES \n" + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password"));
 			e.printStackTrace();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("ServMain::INIT  -- ERROR AL ESTABLECER conexión DESDE FICHERO PROPERTIES ");
@@ -113,7 +108,7 @@ public class ServMain extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
 
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		if (bINITT){
 			if(validarRequest(request)){
 				
@@ -146,16 +141,13 @@ public class ServMain extends HttpServlet {
 				}else{
 					response.sendRedirect("logOut.html");
 				}
-	    		//response.sendRedirect("logOut.html");
-				
-				//response.getOutputStream().write("logOut.html".getBytes());
 			}
 		}else{
 			//PROBLEMA INICIALIZACIÓN 
 			//ENVIAR A PÁGINA DE ERROR
 			response.sendRedirect("error.html");
 		}
-		//response.sendRedirect("index.jsp");
+
         //request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
@@ -221,18 +213,11 @@ public class ServMain extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    		
-   		 	
-   		 	
-
 
 		}else{
-			//request.setAttribute("loginError","error");
 			System.out.println("ServMain::login  -- Login errorrrr. FALTAN CREDENCIALES\nUsuario=" + request.getParameter("usuario")  + " pwd=" + request.getParameter("password") );
-			//redirect+="?loginError";
-		}		
-    	
-    	//response.sendRedirect(redirect);
+
+		}
     	return false;
     }
            
