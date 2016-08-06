@@ -44,10 +44,10 @@
  <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
-  
-  <build>
+   <build>
     <finalName>iCRTiWeb</finalName>
+    
+
 
  <plugins>
  
@@ -100,17 +100,13 @@
           <source>1.8</source>
           <target>1.8</target>
           <encoding>UTF-8</encoding>
-          <db.dev.driverClass>${db.dev.driverClass}</db.dev.driverClass>
-          <db.dev.connectionURL>${db.dev.connectionURL}</db.dev.connectionURL>
-          <db.dev.database>${db.dev.database}</db.dev.database>
-          <db.dev.username>${db.dev.username}</db.dev.username>
-          <db.dev.password>${db.dev.password}</db.dev.password>
+
         </configuration>
       </plugin>
  
 </plugins>
 
-    <testSourceDirectory>src/main/test</testSourceDirectory>      
+   
     <testResources>
       <testResource>
         <directory>src/main/test</directory>
@@ -119,12 +115,15 @@
     
    <resources>
         <resource>
-            <directory>${basedir}/src/main/resources</directory>
+            <directory>src/main/resources</directory>
             <filtering>true</filtering>
         </resource>
     </resources>
     
-    
+    <filters>
+	    <filter>src/main/resources/system_icrti.properties</filter>
+	</filters>
+
   </build>
   
      

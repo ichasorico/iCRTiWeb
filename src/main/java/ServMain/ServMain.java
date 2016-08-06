@@ -87,7 +87,7 @@ public class ServMain extends HttpServlet {
 			// DataSource ds = (DataSource) envContext.lookup("jdbc/sqlLocal");
 			Class.forName (properties.getProperty("driverClassName")).newInstance ();			
 			conn = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));			
-			System.out.println("ServMain::INIT  -- CONEXIÓN A LA BBDD REALIZADA");    	
+			System.out.println("ServMain::INIT  -- CONEXIÓN A LA BBDD REALIZADA" + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password"));    	
 			
 			
 		} catch (IOException e1) {
@@ -98,6 +98,7 @@ public class ServMain extends HttpServlet {
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("ServMain::INIT  -- ERROR AL ESTABLECER driverClassName DESDE FICHERO PROPERTIES ");
+			System.out.println("ServMain::INIT  -- " + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password"));
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
