@@ -1,16 +1,10 @@
 package utils;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.servlet.ServletContext;
-import javax.sql.DataSource;
 
-import com.mysql.jdbc.PreparedStatement;
 
 public class conexiones {
 
