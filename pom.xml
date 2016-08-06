@@ -120,9 +120,7 @@
         </resource>
     </resources>
     
-    <filters>
-	    <filter>src/main/resources/system_icrti.properties</filter>
-	</filters>
+
 
   </build>
   
