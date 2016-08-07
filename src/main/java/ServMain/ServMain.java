@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import utils.conexion;
 import utils.usuario;
 /**
@@ -30,6 +33,8 @@ public class ServMain extends HttpServlet {
 	private static String cfgIdSevidor = "tomcatId4Persistencia";	
 	private static String cfgValidezTimeStamp = "validezTimeStamp";
 	private static  String idSevidor = "";
+	
+	private static final Logger LOGGER = LogManager.getLogger(ServMain.class);
 	
 	private static long valiezTimeStamp = 0;
 	
@@ -47,8 +52,10 @@ public class ServMain extends HttpServlet {
     @Override
     public void init() throws ServletException{
     	
-    	System.out.println("ServMain::INIT  -- CONFIGURACIONES SERVIDOR AL ARRANCAR");
+    	LOGGER.info("INIT  -- CONFIGURACIONES SERVIDOR AL ARRANCAR");
 
+    	
+    	
     	initDB();
 
     	setValidezTimeStamp(getServletContext());
@@ -58,15 +65,16 @@ public class ServMain extends HttpServlet {
     	
     }
     
+    
+    
     private static void setIdServ(ServletContext servletContext){
     	idSevidor = servletContext.getInitParameter(cfgIdSevidor);        
-        System.out.println("ServMain::INIT cfgIdSevidor = " + idSevidor  );
-        System.out.println("ServMain::INIT  -- CARGA INICIALIZACIÓN WEB.XML");  
+    	LOGGER.info("INIT::cfgIdSevidor = " + idSevidor  + "   -- CARGA INICIALIZACIÓN WEB.XML");  
     }
     
     private static void setValidezTimeStamp(ServletContext servletContext){
     	valiezTimeStamp = Long.parseLong(servletContext.getInitParameter(cfgValidezTimeStamp));        
-        System.out.println("ServMain::INIT setValidezTimeStamp = " + idSevidor  );
+    	LOGGER.info("INIT setValidezTimeStamp = " + idSevidor  );
         
     }
     
@@ -82,23 +90,22 @@ public class ServMain extends HttpServlet {
 			properties.load(input);
 			Class.forName (properties.getProperty("driverClassName")).newInstance ();			
 			conn = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));			
-			System.out.println("ServMain::INIT  -- CONEXIÓN A LA BBDD REALIZADA" + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password"));    	
+			LOGGER.info("INIT  -- CONEXIÓN A LA BBDD REALIZADA" + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password"));    	
 			
 			
 		} catch (IOException e1) {
-			System.out.println("ServMain::INIT  -- ERROR AL REALIZAR LECTURA FICHERO PROPERTIES ");
-		
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			LOGGER.error("INIT  -- ERROR AL REALIZAR LECTURA FICHERO PROPERTIES ", e1);
+
+
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println("ServMain::INIT  -- ERROR AL ESTABLECER driverClassName DESDE FICHERO PROPERTIES \n" + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password"));
-			e.printStackTrace();
+			LOGGER.error("INIT  -- ERROR AL ESTABLECER driverClassName DESDE FICHERO PROPERTIES \n" + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password") ,e);
+
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("ServMain::INIT  -- ERROR AL ESTABLECER conexión DESDE FICHERO PROPERTIES ");
-			e.printStackTrace();
+			LOGGER.error("INIT  -- ERROR AL ESTABLECER conexión DESDE FICHERO PROPERTIES ",e);
+
 		}
     	
     }
@@ -136,7 +143,7 @@ public class ServMain extends HttpServlet {
 		        }
 			}else{
 				if("pingLogin".equals(request.getParameter("operacion"))){
-		    		//logOUT(request);
+					
 	        		response.getOutputStream().write("logOut.html".getBytes());
 				}else{
 					response.sendRedirect("logOut.html");
@@ -148,7 +155,7 @@ public class ServMain extends HttpServlet {
 			response.sendRedirect("error.html");
 		}
 
-        //request.getRequestDispatcher("index.jsp").forward(request, response);
+
 	}
 
 	/**
@@ -170,10 +177,10 @@ public class ServMain extends HttpServlet {
 		Long tiempoActividad = 	Long.parseLong(curSesion.getAttribute("timeStamped").toString()) - 
 								Long.parseLong(curSesion.getAttribute("timeStamp").toString()); 
 		if(tiempoActividad 	> 	valiezTimeStamp	){
-			System.out.println("ServMain::gestionaPing TIEMPO INACTIVIDAD SUPERADO. LOGOUT USUARIO");
+			LOGGER.warn("ServMain::gestionaPing TIEMPO INACTIVIDAD SUPERADO. LOGOUT USUARIO");
     		return Long.parseLong("0");
 		}else{
-			System.out.println("ServMain::gestionaPing TIEMPO INACTIVIDAD CORRECTO.");
+			LOGGER.info("gestionaPing TIEMPO INACTIVIDAD CORRECTO.");
 			return tiempoActividad;			
 		}	
 	}
@@ -181,7 +188,7 @@ public class ServMain extends HttpServlet {
 	
     private boolean login(HttpServletRequest request){
     	
-    	System.out.println("ServMain::login SOLICITUD DE LOGIN");
+    	LOGGER.warn("login SOLICITUD DE LOGIN");
     	
     	if(request.getParameter("usuario") != null && request.getParameter("password") != null ){
     		
@@ -193,8 +200,8 @@ public class ServMain extends HttpServlet {
 	    			HttpSession curSesion = request.getSession();
 		        	String idSesion = curSesion.getId();
 		        	usr.setIdSesion(idSesion);
-	    			//sesiones.add(usr);
-	        		System.out.println("ServMain::login  -- Login ok");
+	    			
+	        		LOGGER.info("login  -- Login ok");
 	        		curSesion.setAttribute("Login", "true");
 	        		
 	        		//NUEVA VERSIÓN CONTROL SESIONES CON PERSISTENCIA
@@ -211,11 +218,11 @@ public class ServMain extends HttpServlet {
 	    		
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.error("login ",e);
 			}
 
 		}else{
-			System.out.println("ServMain::login  -- Login errorrrr. FALTAN CREDENCIALES\nUsuario=" + request.getParameter("usuario")  + " pwd=" + request.getParameter("password") );
+			LOGGER.warn("login  -- Login errorrrr. FALTAN CREDENCIALES\nUsuario=" + request.getParameter("usuario")  + " pwd=" + request.getParameter("password") );
 
 		}
     	return false;
@@ -248,11 +255,10 @@ public class ServMain extends HttpServlet {
 	    		if (c.isUserOk()){
 	    			return true;
 	    		}else{
-	    			System.out.println("ServMain::validarRequest  -- No se identifia REQUEST recibida");
+	    			LOGGER.warn("validarRequest  -- No se identifia REQUEST recibida");
 	    		}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.error("validarRequest ",e);
 			}
     	}
 
@@ -262,17 +268,17 @@ public class ServMain extends HttpServlet {
     	//LLEGADOS A ESTE PUNTO NO SE ENCUENTRA AL USUARIO LOGADO POR SESIÓN.
     	//DETERMINAMOS SI NOS ESTÁ PIDIENDO LOGIN. CASO CONTRARIO, PASAMOS DE LA PETICIÓN
     	
-    	System.out.println("ServMain::validarRequest  -- Acceso no logado. Se determinará si pide Login");
+    	LOGGER.info("validarRequest  -- Acceso no logado. Se determinará si pide Login");
 
     	if(request.getParameter("operacion") != null && !"".equalsIgnoreCase(request.getParameter("operacion"))){
     		String operacion = request.getParameter("operacion");		        	
     		if(operacion.equals("login") || operacion.equals("login4Admin")){ // NOPMD by Íñigo on 4/07/16 16:19
     			return login(request);		        			
     		}else{
-    			System.out.println("ServMain::validarRequest  -- Usuario No Logado y Request operación que no es de LOGIN");
+    			LOGGER.warn("validarRequest  -- Usuario No Logado y Request operación que no es de LOGIN");
     		}
     	}else{
-        	System.out.println("ServMain::validarRequest  -- Usuario No Logado y Request sin solicitud de LOGIN");
+    		LOGGER.warn("validarRequest  -- Usuario No Logado y Request sin solicitud de LOGIN");
     	}	        	
 
 	  
@@ -294,8 +300,7 @@ public class ServMain extends HttpServlet {
 				c.removeSesion(sentencia, request.getSession(true).getAttribute("sello").toString());
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("logOUT " ,e);
 		}
     	
     	
@@ -313,30 +318,25 @@ public class ServMain extends HttpServlet {
 			sentencia = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 			resultado = sentencia.executeQuery(sql);
 			resultado.first();
-			System.out.println("ServMain::INITT::limpiaConexionesActivas("+idServidor+")  -  Se borrarán " + resultado.getString("cuenta") + " conexiones activas");
+			LOGGER.warn("INITT::limpiaConexionesActivas("+idServidor+")  -  Se borrarán " + resultado.getString("cuenta") + " conexiones activas");
 			resultado.close();
 			sentencia.close();
 			sql = "delete from conexionesactivas where idServidor = '" + idServidor + "'";
 			try {
 				sentencia = conn.createStatement();
 				sentencia.execute(sql);
-				System.out.println("ServMain::INITT::limpiaConexionesActivas("+idServidor+")  - Borrado de conexiones activas instancia + " + idServidor + "  OK !!!");
+				LOGGER.warn("INITT::limpiaConexionesActivas("+idServidor+")  - Borrado de conexiones activas instancia + " + idServidor + "  OK !!!");
 				sentencia.close();
 				bINITT =true;
 				return true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.error("INIT::limpiaConexionesActivas",e);
 			}catch (Exception e){
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
+				LOGGER.error("INIT::limpiaConexionesActivas",e);			}			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("INIT::limpiaConexionesActivas",e);
 		}catch (Exception e){
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("INIT::limpiaConexionesActivas",e);
 		}
 				
 		return false;
