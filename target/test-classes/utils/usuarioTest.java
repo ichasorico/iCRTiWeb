@@ -1,9 +1,9 @@
 package utils;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,21 +14,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
-
-import utils.usuario;
 
 
 public class usuarioTest {
 
+	private static Logger LOGGER = null;
+	
 		private String usuario1 = "ingo";
 		private String usuario2 = "macario";
 		private String pwdUsuario1 = "asteroide";
@@ -55,7 +51,10 @@ public class usuarioTest {
 	     
 	    {
 
-	    	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+	        System.setProperty("log4j.configurationFile","log4j_testing.xml");
+	        LOGGER = LogManager.getLogger();
+	        
+	        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 	    	Properties properties = new Properties();
 
 
@@ -66,7 +65,7 @@ public class usuarioTest {
 				Class.forName (properties.getProperty("driverClassName")).newInstance ();			
 				Connection connection = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));			
 				sentencia = connection.createStatement();
-				System.out.println("TEST!!::usuarioTest::initialize -> Conexión a la BBDD realizada:  url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
+				LOGGER.info("initialize::Conexión a la BBDD realizada:  url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
 	    		// OBTENEMOS idUsuario PARA USUARIO1
 	    		String sql = "select * from usuarios where nombre = '" + usuario1 +"'";
 	    		ResultSet resultado = sentencia.executeQuery(sql);
@@ -78,11 +77,8 @@ public class usuarioTest {
 	    		resultado = sentencia.executeQuery(sql);
 	    		resultado.first();
 	    		idUsuario2 = resultado.getString("idUsuario");
-/*
-	    		resultado.close();
-	    		sentencia.close();
-	    		sentencia = connection.createStatement();
-	    		*/
+
+
 	    		// OBTENEMOS isUserAdmin PARA USUARIO1
 	    		sql = "SELECT count(*) as cuenta FROM roles where idroles in (select idRol from userroles where idUsuario in(SELECT idUsuario FROM usuarios where nombre = '"+ usuario1 +"'"+")) and admin = 1";
 	    		resultado = sentencia.executeQuery(sql);
@@ -115,22 +111,20 @@ public class usuarioTest {
 
 	    	} catch (SQLException e) {
 	    	    throw new IllegalStateException("Cannot connect the database!", e);
+	    	    
 	    	} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+	    		LOGGER.error("initialize::",e1);
+	    		
 			} catch (InstantiationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				LOGGER.error("initialize::",e1);
+				
 			} catch (IllegalAccessException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				LOGGER.error("initialize::",e1);
+				
 			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}			
-
-	    	
-
+				LOGGER.error("initialize::",e1);
+				
+			}
 	    }
 	    
 	    @Test 

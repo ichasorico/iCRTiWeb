@@ -1,30 +1,29 @@
 package utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
-
-import utils.usuario;
 
 
 public class conexionTest {
 
+	private static Logger LOGGER = null;
+	
 		private String usuario1 = "ingo";
 		private String usuario2 = "macario";
 		private String pwdUsuario1 = "asteroide";
@@ -54,6 +53,10 @@ public class conexionTest {
 	    @Before	    
 	    public void initialize()	     
 	    {
+	    	
+	        System.setProperty("log4j.configurationFile","log4j_testing.xml");
+	        LOGGER = LogManager.getLogger();
+	        
 	    	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 	    	Properties properties = new Properties();
 
@@ -65,10 +68,9 @@ public class conexionTest {
 				Class.forName (properties.getProperty("driverClassName")).newInstance ();			
 				Connection connection = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));			
 				sentencia = connection.createStatement();
-				System.out.println("TEST!!::conexionTest::initialize -> Conexión a la BBDD realizada:  url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
+				LOGGER.info("conexionTest::initialize -> Conexión a la BBDD realizada:  url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
 	    	}catch(Exception e){
-	    		System.out.println("url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
-    			System.out.println(e.toString());
+	    		LOGGER.error("initialize url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"),e);
 	    	}	    	
 	    }
 	    
@@ -88,8 +90,7 @@ public class conexionTest {
 	    		resultado.first();	    		
 	    		selloTest = resultado.getString("idSesion");	    		
     		}catch(Exception e){
-    			System.out.println(sql);
-    			System.out.println(e.toString());
+    			LOGGER.error("testConexionUsuarioValido \n" +  sql, e);
     		}
     		assertEquals(selloUsuario1, selloTest);
 	    }
