@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Íñigo (generated)" id="1470645629494-1">
+        <createTable tableName="conexionesactivas">
+            <column name="idSesion" type="VARCHAR(65)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="idUsuario" type="INT"/>
+            <column name="isAdmin" type="BIT(1)"/>
+            <column name="idServidor" type="VARCHAR(45)"/>
+            <column name="timeStamp" type="VARCHAR(15)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470645629494-2">
+        <createTable tableName="roles">
+            <column autoIncrement="true" name="idroles" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="rol" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="desc" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="admin" type="BIT(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470645629494-3">
+        <createTable tableName="userroles">
+            <column name="idUsuario" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="idRol" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470645629494-4">
+        <createTable tableName="usuarios">
+            <column autoIncrement="true" name="idUsuario" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="nombre" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pwd" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descrip" type="VARCHAR(100)"/>
+            <column defaultValueNumeric="0" name="encrypt" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470645629494-5">
+        <addPrimaryKey columnNames="idSesion" constraintName="PRIMARY" tableName="conexionesactivas"/>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470645629494-6">
+        <addPrimaryKey columnNames="idUsuario, idRol" constraintName="PRIMARY" tableName="userroles"/>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470645629494-7">
+        <addUniqueConstraint columnNames="idRol" constraintName="idRol_UNIQUE" tableName="userroles"/>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470645629494-8">
+        <addUniqueConstraint columnNames="idSesion" constraintName="idSesion_UNIQUE" tableName="conexionesactivas"/>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470645629494-9">
+        <addUniqueConstraint columnNames="idUsuario" constraintName="idUsuario_UNIQUE" tableName="userroles"/>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470645629494-10">
+        <addUniqueConstraint columnNames="idUsuario" constraintName="idUsuarios_UNIQUE" tableName="usuarios"/>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470645629494-11">
+        <addUniqueConstraint columnNames="idroles" constraintName="idroles_UNIQUE" tableName="roles"/>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470645629494-12">
+        <createIndex indexName="usuarios" tableName="usuarios">
+            <column name="nombre"/>
+            <column name="pwd"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

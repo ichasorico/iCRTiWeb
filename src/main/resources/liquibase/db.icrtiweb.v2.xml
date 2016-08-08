@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+ 
+    <changeSet author="Íñigo (generated)" id="1470648666635-2">
+        <insert tableName="roles">
+            <column name="idroles" valueNumeric="1"/>
+            <column name="rol" value="Usuarios"/>
+            <column name="desc" value="Usuarios del Sistema"/>
+            <column name="admin" valueBoolean="false"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="idroles" valueNumeric="2"/>
+            <column name="rol" value="Administradores"/>
+            <column name="desc" value="Administradores del Sistema"/>
+            <column name="admin" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470648666635-3">
+        <insert tableName="userroles">
+            <column name="idUsuario" valueNumeric="1"/>
+            <column name="idRol" valueNumeric="2"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Íñigo (generated)" id="1470648666635-4">
+        <insert tableName="usuarios">
+            <column name="idUsuario" valueNumeric="1"/>
+            <column name="nombre" value="ingo"/>
+            <column name="pwd" value="$2a$12$18De4M64M3e1kUUKKqYF2.UdG4/mueF2YYg.BTJCz5cmc1wytzaje"/>
+            <column name="descrip" value="usuario ingo"/>
+            <column name="encrypt" valueNumeric="0"/>
+        </insert>
+        <insert tableName="usuarios">
+            <column name="idUsuario" valueNumeric="2"/>
+            <column name="nombre" value="macario"/>
+            <column name="pwd" value="$2a$12$uSQqlmw8jwZn8qdiaRJMKe16T9BobV6WGEIXDftURz6njGuDFE28a"/>
+            <column name="descrip" value="usuario macario"/>
+            <column name="encrypt" valueNumeric="0"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
