@@ -80,12 +80,7 @@
                    
                    <delete file="src/main/resources/system_icrti.properties"/>
                    <copy file="src/main/resources/system_icrti.dev.properties"
-                         tofile="src/main/resources/system_icrti.properties"/>
-                   
-                    <delete file="target/classes/system_icrti.properties"/>
-                   <copy file="src/main/resources/system_icrti.dev.properties"
-                         tofile="target/classes/system_icrti.properties"/>
-                         
+                         tofile="src/main/resources/system_icrti.properties"/>                         
                                                  
                    <delete file="src/main/resources/system_icrti.dev.properties"/>
                    <delete file="src/main/resources/system_icrti.qua.properties"/>
@@ -93,8 +88,6 @@
                    <delete file="${project.build.outputDirectory}/system_icrti.dev.properties"/>
                    <delete file="${project.build.outputDirectory}/system_icrti.qua.properties"/>
                    
-                   <delete file="target/classes/system_icrti.dev.properties"/>
-                   <delete file="target/classes/system_icrti.qua.properties"/>
                  </tasks>
                </configuration>
              </execution>
