@@ -61,14 +61,14 @@
   
 <profiles>
    <profile>
-     <id>test</id>
+     <id>pre-test</id>
      <build>
        <plugins>
          <plugin>
            <artifactId>maven-antrun-plugin</artifactId>
            <executions>
              <execution>
-               <phase>test</phase>
+
                <goals>
                  <goal>run</goal>
                </goals>
@@ -98,7 +98,8 @@
    </profile>
   
   
-
+  
+ 
   </profiles>
   
    <build>
