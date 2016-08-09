@@ -104,14 +104,15 @@
       		<artifactId>liquibase-maven-plugin</artifactId>
       		<version>3.0.5</version>
       		<configuration>
-        		<changeLogFile>src/main/resources/liquibase.icrtiweb.xml</changeLogFile>          
+        		<changeLogFile>src/main/resources/liquibase.icrtiweb.xml</changeLogFile> 
+        		<driver>com.mysql.jdbc.Driver</driver>
           		<url>${db.dev.connectionURL}/${db.dev.database}</url>
           		<username>${db.dev.username}</username>
          		<password>${db.dev.password}</password>
         	</configuration>
       		<executions>
         		<execution>
-          			<phase>validate</phase>
+          			<phase>test</phase>
         		</execution>
       		</executions>
     	</plugin>
