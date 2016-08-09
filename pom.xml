@@ -104,8 +104,8 @@
       		<artifactId>liquibase-maven-plugin</artifactId>
       		<version>3.0.5</version>
       		<configuration>
-        		<changeLogFile></changeLogFile>        		        		          
-		          <diffChangeLogFile>src/main/resources/db.changelog.icrtiweb.xml</diffChangeLogFile>
+        		<changeLogFile>src/main/resources/liquibase.icrtiweb.xml</changeLogFile>        		        		          
+		          <diffChangeLogFile></diffChangeLogFile>
 		          <driver>com.mysql.jdbc.Driver</driver>
 		          <username>root</username>
 		          <password>asteroide</password>
