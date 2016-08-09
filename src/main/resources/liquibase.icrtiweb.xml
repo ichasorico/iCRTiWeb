@@ -7,5 +7,6 @@
 
   <include file="src/main/resources/liquibase/db.icrtiweb.v1.xml"/> 
   <include file="src/main/resources/liquibase/db.icrtiweb.v2.xml"/>
+  <include file="src/main/resources/liquibase/db.icrtiweb.v3.xml"/>
  
 </databaseChangeLog> 
