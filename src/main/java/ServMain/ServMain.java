@@ -61,7 +61,7 @@ public class ServMain extends HttpServlet {
     	setValidezTimeStamp(getServletContext());
     	setIdServ(getServletContext());        
         
-    	getServletContext().setAttribute("INIT_ICRTI", String.valueOf(limpiaConexionesActivas(idSevidor)));
+    	getServletContext().setAttribute("INIT_iCRTiWeb", String.valueOf(limpiaConexionesActivas(idSevidor)));
     	
     }
     
