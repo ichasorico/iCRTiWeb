@@ -102,10 +102,11 @@
          <plugin>
     	  	<groupId>org.liquibase</groupId>
       		<artifactId>liquibase-maven-plugin</artifactId>
-      		<version>3.0.5</version>
+      		<version>3.5.1</version>
       		<configuration>
         		<changeLogFile>src/main/resources/liquibase.icrtiweb.xml</changeLogFile>        		        		          
-		          <diffChangeLogFile></diffChangeLogFile>
+		          <diffChangeLogFile>src/main/resources/liquibase.icrtiweb.diffChangelog.xml</diffChangeLogFile>
+		          
 		          <driver>com.mysql.jdbc.Driver</driver>
 		          <username>root</username>
 		          <password>asteroide</password>
