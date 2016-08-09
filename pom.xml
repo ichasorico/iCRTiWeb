@@ -108,13 +108,13 @@
 		          <diffChangeLogFile>src/main/resources/liquibase.icrtiweb.diffChangelog.xml</diffChangeLogFile>
 		          
 		          <driver>com.mysql.jdbc.Driver</driver>
-		          <username>root</username>
-		          <password>asteroide</password>
-		          <url>jdbc:mysql://localhost:3306/icrtiweb.local.dev.chaso</url>
+		          <username>${db.dev.username}</username>
+		          <password>${db.dev.password}</password>
+		          <url>${db.dev.connectionURL}/${db.dev.database}</url>
 		          <referenceDriver>com.mysql.jdbc.Driver</referenceDriver>
-		          <referenceUsername>${db.dev.username}</referenceUsername>
-		          <referencePassword>${db.dev.password}</referencePassword>
-		          <referenceUrl>${db.dev.connectionURL}/${db.dev.database}</referenceUrl>          
+		          <referenceUsername>root</referenceUsername>
+		          <referencePassword>asteroide</referencePassword>
+		          <referenceUrl>jdbc:mysql://localhost:3306/icrtiweb.local.dev.chaso</referenceUrl>          
 		          <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>        	
         	</configuration>
       		<executions>
