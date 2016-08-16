@@ -19,6 +19,8 @@ import javax.sql.DataSource;
 import org.junit.Before;
 import org.junit.Test;
 
+import users.admUser;
+
 
 public class conexionTest {
 
@@ -62,7 +64,7 @@ public class conexionTest {
 
 	    	try  {
 //	    		Connection connection = DriverManager.getConnection(url, username, password);
-	    		InputStream input = classLoader.getResourceAsStream("system_icrti.properties");
+	    		InputStream input = classLoader.getResourceAsStream("system_icrtiweb.properties");
 	    		properties.load(input);
 	    		
 				Class.forName (properties.getProperty("driverClassName")).newInstance ();			
@@ -79,7 +81,7 @@ public class conexionTest {
 	    public void testConexionUsuarioValido()
 	    {
 	    	
-	    	usuario u1 = new usuario(sentencia,usuario1, pwdUsuario1);
+	    	admUser u1 = new admUser(sentencia,usuario1, pwdUsuario1);
 	    	selloUsuario1 = u1.getFirma();
 	    	conexion c = new conexion(sentencia, u1,idServidor,true);
 	    	// VERFICIACIÓN SGBD
@@ -99,7 +101,7 @@ public class conexionTest {
 	    public void testConexionUsuario_NO_Valido()
 	    {
 	    	
-	    	usuario u3 = new usuario(sentencia,usuario3, pwdUsuario3);
+	    	admUser u3 = new admUser(sentencia,usuario3, pwdUsuario3);
 	    	//selloUsuario3 = u3.getFirma();
 	    	//conexion c = new conexion(sentencia, u3,idServidor,true);
 	    	assertNull(u3.getFirma());

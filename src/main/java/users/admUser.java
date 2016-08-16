@@ -1,4 +1,4 @@
-package utils;
+package users;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,25 +14,19 @@ import javax.sql.DataSource;
 
 import utils.BCrypt;
 
-public class usuario {
+public class admUser {
 
-	private String id, nombre, idSesion, firma;
+	private String id, nombre, idSesion, firma, passwd;
 	
 	private boolean isAdmin = false;	
-/*	
-	  InitialContext ctx = null;
-	  DataSource ds = null;
-	  Connection conn = null;
-  
-	  boolean conexion = false;
-*/		  
+		  
 	  boolean loginOK = false;
 	  
 	
-	public usuario(){
+	public admUser(){
 		this.nombre = "";		
 		this.id= "";
-
+		this.passwd = "";
 		
   
 	}
@@ -43,11 +37,11 @@ public class usuario {
 	 * @param pwd pwd proporcionada
 	 * 
 	 */
-	public usuario(Statement sentencia, String user, String pwd){
+	public admUser(Statement sentencia, String user, String pwd){
 		this.nombre = "";		
 		this.id= "";
-		//conexionSGBD();
-		//if (conexion){
+		this.passwd = "";
+
 			System.out.println("usuario::INIT ("+user+" , "+pwd+")");
 			if(validarUsuario(sentencia,user,pwd)){
 				getPerfiladoSeguridad(sentencia, user, pwd);
@@ -58,9 +52,7 @@ public class usuario {
 				//return false;
 			}
 			
-		//}else{
-		//	System.out.println("usuario::INIT ("+user+" , "+pwd+")  -- NO HAY CONEXIÓN A BBDDD");
-		//}
+
 	}
 
 	
@@ -110,7 +102,7 @@ public class usuario {
 						storedPassword = resultado.getString("pwd");
 						this.id = resultado.getString("idUsuario");
 						this.nombre = u;						
-
+						this.passwd = p;
 						this.firma = BCrypt.hashpw(p, BCrypt.gensalt(12));
 						System.out.println("usuario::validarUsuario FIRMA " + this.firma);
 
@@ -178,40 +170,7 @@ public class usuario {
 
 		  }
 		
-		
-		private void conexionSGBD(){
-			/*
-			try{
-				ctx = new InitialContext();
-				Context envContext = (Context) ctx.lookup("java:comp/env");
-				DataSource ds = (DataSource) envContext.lookup("jdbc/sqlLocal");    	    
-			    conn = ds.getConnection();
-			    conexion=true;
-			    System.out.println("usuario::INIT-Conexión a BBDD realizada Ok !!!!");
-			}catch(Exception e){
-				System.out.println("usuario::INIT-Conexión a BBDD ERRORRRR \n" + e.toString());
-			}
-			*/	
-		}
-/*		
-		public void desConecta(){
-			try {
-				ctx.close();
-				conn.close();
-			} catch (NamingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}catch(SQLException s){
-				// TODO Auto-generated catch block
-				s.printStackTrace();
-			}catch(Exception x){
-				// TODO Auto-generated catch block
-				x.printStackTrace();				
-			}
-		}
-*/			
-			    	    
-			
+
 
 		
 	public String getIdUsuario() {
@@ -240,6 +199,10 @@ public class usuario {
 		return firma;
 	}
 
+	public String getPwd() {
+		return passwd;
+	}
+	
 
 	/**
 	 * DETERMINA SI UN USUARIO EST CORRECTAMENTE FORMADO. PARA ELLO VALIDA SI DISPONE DE 

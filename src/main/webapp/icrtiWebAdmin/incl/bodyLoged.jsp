@@ -33,15 +33,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v2.6.1, mobirise.com">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="assets/images/discover-mobile-350x350-16.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../assets/images/discover-mobile-350x350-16.png" type="image/x-icon">
   <meta name="description" content="Free Bootstrap Blog Template">
   <title>Acceso admin iCRTiWeb</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,400&amp;subset=cyrillic,latin,greek,vietnamese">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/mobirise/css/style.css">
-  <link rel="stylesheet" href="assets/mobirise-slider/style.css">
-  <link rel="stylesheet" href="assets/mobirise-gallery/style.css">
-  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/mobirise/css/style.css">
+  <link rel="stylesheet" href="../assets/mobirise-slider/style.css">
+  <link rel="stylesheet" href="../assets/mobirise-gallery/style.css">
+  <link rel="stylesheet" href="../assets/mobirise/css/mbr-additional.css" type="text/css">
   
   
 </head>
@@ -53,8 +53,8 @@
             <div class="mbr-navbar__container">
                 <div class="mbr-navbar__column mbr-navbar__column--s mbr-navbar__brand">
                     <span class="mbr-navbar__brand-link mbr-brand mbr-brand--inline">
-                        <span class="mbr-brand__logo"><a href="https://mobirise.com/bootstrap-template/"><img class="mbr-navbar__brand-img mbr-brand__img" src="assets/images/discover-mobile-350x350-53.png" alt="Mobirise"></a></span>
-                        <span class="mbr-brand__name"><a class="mbr-brand__name text-white" href="https://mobirise.com/bootstrap-template/">iCRTi Consulting S.L.</a></span>
+                        <span class="mbr-brand__logo"><a href="https://mobirise.com/bootstrap-template/"><img class="mbr-navbar__brand-img mbr-brand__img" src="../assets/images/discover-mobile-350x350-53.png" alt="Mobirise"></a></span>
+                        <span class="mbr-brand__name"><a class="mbr-brand__name text-white" href="javascript:document.getElementById('getIndexForm').submit();">iCRTi Consulting S.L.</a></span>
                     </span>
                 </div>
                 <div class="mbr-navbar__hamburger mbr-hamburger text-white"><span class="mbr-hamburger__line"></span></div>
@@ -69,15 +69,15 @@
     </div>
 </section>
 
-<section class="content-2 simple col-1 col-undefined mbr-parallax-background mbr-after-navbar" id="content5-77" style="background-image: url(assets/images/iphone-6-458151-1920-1920x1285-67.jpg);">
+<section class="content-2 simple col-1 col-undefined mbr-parallax-background mbr-after-navbar" id="content5-77" style="background-image: url(../assets/images/iphone-6-458151-1920-1920x1285-67.jpg);">
     <div class="mbr-overlay" style="opacity: 0.6; background-color: rgb(0, 0, 0);"></div>
     <div class="container">
         <div class="row">
             <div>
                 <div class="thumbnail">
                     <div class="caption">
-                        <h3>Acceso CONCEDIDO al Sistema</h3>                        
-                        <div><p>El usuario es admin = <%=isAdmin %><br>tiempo Conexión <span id="tiempo"><%=tmSession %></span></p></div>
+                        <h3>AdministraciÃ³n del Sistema</h3>                        
+                        <div><p>El usuario es admin = <%=isAdmin %><br>Conexiï¿½n <span id="tiempo"><%=tmSession %></span> <%=sello%></p></div>
                     </div>
                 </div>
             </div>
@@ -98,15 +98,17 @@
 
     function checkcounter(){
        var params="operacion=pingLogin&sello=<%=sello%>";       
-       $.ajax({url:"ServMain",
+       $.ajax({url:"<%=request.getContextPath()%>/ServMain",
            type:"POST",
            data:params,
            success: function(result){
-              if(!result.startsWith("LoginOK!!")){
-        	   	window.location.href=result;
+              if(!result.startsWith("LoginOK!!")){            	  
+            		            	
+        	   		window.location.href=result;
+        	   	
            		}else{
-           			var res = result.split("!!");
            			
+           			var res = result.split("!!");           			
            			document.getElementById("tiempo").innerHTML=res[1];
            		}
               
@@ -133,7 +135,7 @@
     <div class="mbr-section__container container mbr-section__container--middle">
         <div class="row">
             <div class="mbr-article mbr-article--wysiwyg col-sm-8 col-sm-offset-2"><p>
-            	<form id="logedForm" action="ServMain" method="post">
+            	<form id="logedForm" action="<%=request.getContextPath()%>/ServMain" method="post">
 					<input type="hidden" name="operacion" id="operacion" value="logOut" />
 					<input type="hidden" name="sello" id="sello" value="<%=sello%> %>" />
 					<input type="submit" value="LogOUT"/>
@@ -159,16 +161,17 @@
     </div>
 </footer>
 
+<%@ include file="../../WEB-INF/incl/navServlet.jsp" %>
 
-  <script src="assets/jquery/jquery.min.js"></script>
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/smooth-scroll/SmoothScroll.js"></script>
-  <script src="assets/jarallax/jarallax.js"></script>
-  <script src="assets/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>
-  <script src="assets/masonry/masonry.pkgd.min.js"></script>
-  <script src="assets/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/mobirise/js/script.js"></script>
-  <script src="assets/mobirise-gallery/script.js"></script>
+  <script src="../assets/jquery/jquery.min.js"></script>
+  <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../assets/smooth-scroll/SmoothScroll.js"></script>
+  <script src="../assets/jarallax/jarallax.js"></script>
+  <script src="../assets/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>
+  <script src="../assets/masonry/masonry.pkgd.min.js"></script>
+  <script src="../assets/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../assets/mobirise/js/script.js"></script>
+  <script src="../assets/mobirise-gallery/script.js"></script>
   
   
 </body>    

@@ -8,28 +8,13 @@ import java.sql.Statement;
 
 public class conexiones {
 
-	/*
-	  InitialContext ctx = null;
-	  DataSource ds = null;
-	  Connection conn = null;
-	  */
+
 	  boolean conexion = false;
 	  boolean loginOK = false;
 	  
 	
 	public conexiones(){
-		/*
-		try{
-			ctx = new InitialContext();
-			Context envContext = (Context) ctx.lookup("java:comp/env");
-			DataSource ds = (DataSource) envContext.lookup("jdbc/sqlLocal");    	    
-		    conn = ds.getConnection();
-		    conexion=true;
-		    System.out.println("conexiones::INIT-Conexión a BBDD realizada Ok");
-		}catch(Exception e){
-			System.out.println("conexiones::INIT-ERRORRRR al intentar Conexión a BBDD " + e.toString());
-		}
-		*/	    
+	    
 	  }
 	
 	public void clearAll(Statement sentencia, String idServidor){
@@ -64,17 +49,6 @@ public class conexiones {
 			e.printStackTrace();
 		}
 	}
-/*	
-	public void cierra(){
-		
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("conexiones::cierra()  - Problema al cerrar conexión !!!");
-			e.printStackTrace();
-		}
-	}
-*/	
+
 	
 }

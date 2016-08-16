@@ -1,6 +1,9 @@
 package ServMain;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.util.Enumeration;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -9,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Servlet Filter implementation class numRequest
@@ -45,10 +49,6 @@ public class gestRequest implements Filter {
 	      System.out.println("Filtro::número request:"+ hitCount );
 
 	      
-	      ServletContext sc = request.getServletContext();
-	      String init = (String)sc.getAttribute("INIT_iCRTiWeb");
-//	      request.setAttribute("INIT_ICRTI", init);
-	      System.out.println("Filtro::INIT="+ init);
 	      
 		// pass the request along the filter chain
 		chain.doFilter(request, response);

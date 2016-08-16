@@ -79,19 +79,19 @@
                </goals>
                <configuration>
  				<tasks>
-                   <delete file="${project.build.outputDirectory}/system_icrti.properties"/>
-                   <copy file="src/main/resources/system_icrti.dev.properties"
-                         tofile="${project.build.outputDirectory}/system_icrti.properties"/>
+                   <delete file="${project.build.outputDirectory}/system_icrtiweb.properties"/>
+                   <copy file="src/main/resources/system_icrtiweb.dev.properties"
+                         tofile="${project.build.outputDirectory}/system_icrtiweb.properties"/>
                    
-                   <delete file="src/main/resources/system_icrti.properties"/>
-                   <copy file="src/main/resources/system_icrti.dev.properties"
-                         tofile="src/main/resources/system_icrti.properties"/>                         
+                   <delete file="src/main/resources/system_icrtiweb.properties"/>
+                   <copy file="src/main/resources/system_icrtiweb.dev.properties"
+                         tofile="src/main/resources/system_icrtiweb.properties"/>                         
                                                  
-                   <delete file="src/main/resources/system_icrti.dev.properties"/>
-                   <delete file="src/main/resources/system_icrti.qua.properties"/>
+                   <delete file="src/main/resources/system_icrtiweb.dev.properties"/>
+                   <delete file="src/main/resources/system_icrtiweb.qua.properties"/>
                    
-                   <delete file="${project.build.outputDirectory}/system_icrti.dev.properties"/>
-                   <delete file="${project.build.outputDirectory}/system_icrti.qua.properties"/>
+                   <delete file="${project.build.outputDirectory}/system_icrtiweb.dev.properties"/>
+                   <delete file="${project.build.outputDirectory}/system_icrtiweb.qua.properties"/>
                    
                  </tasks>
                </configuration>
@@ -144,11 +144,11 @@
                </goals>
                <configuration>
  				<tasks>
-                   <delete file="${project.build.outputDirectory}/system_icrti.properties"/>
-                   <copy file="src/main/resources/system_icrti.qua.properties"
-                         tofile="${project.build.outputDirectory}/system_icrti.properties"/>
-                   <delete file="target/classes/system_icrti.dev.properties"/>
-                   <delete file="target/classes/system_icrti.qua.properties"/>                  
+                   <delete file="${project.build.outputDirectory}/system_icrtiweb.properties"/>
+                   <copy file="src/main/resources/system_icrtiweb.qua.properties"
+                         tofile="${project.build.outputDirectory}/system_icrtiweb.properties"/>
+                   <delete file="target/classes/system_icrtiweb.dev.properties"/>
+                   <delete file="target/classes/system_icrtiweb.qua.properties"/>                  
                  </tasks>
                </configuration>
              </execution>

@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import users.admUser;
+
 public class conexion {
 
 	String idUsuario, nombre, idSesion, timeStamp;
@@ -43,10 +45,10 @@ public class conexion {
 	/**
 	 * Inicializa conexión a SGBD y añade nueva conexion a partir de un objeto Usuario.
 	 * Si existe sesión con mismo ID no crea la sesión
-	 * @param usuario class, String idServidor
+	 * @param admUser class, String idServidor
 	 * @return 
 	 */
-	  public conexion(Statement sentencia, usuario u, String idServidor){
+	  public conexion(Statement sentencia, admUser u, String idServidor){
 			this.nombre = "";		
 			this.idUsuario= "";
 		  //conectaSGBD();
@@ -58,10 +60,10 @@ public class conexion {
 		/**
 		 * Inicializa conexión a SGBD y añade nueva conexion a partir de un objeto Usuario.
 		 * Si la sesión ya existiera con mismo ID, sobreEscribe.
-		 * @param usuario class, String idServidor
+		 * @param admUser class, String idServidor
 		 * @return 
 		 */
-		  public conexion(Statement sentencia, usuario u, String idServidor, boolean sobreEscribe){
+		  public conexion(Statement sentencia, admUser u, String idServidor, boolean sobreEscribe){
 				this.nombre = "";		
 				this.idUsuario= "";
 			  // conectaSGBD();
@@ -171,7 +173,7 @@ public class conexion {
 			*/			
 	  }
 	  
-	  private void addSesion(Statement sentencia, usuario u, String idServ, boolean sobreEscribe){
+	  private void addSesion(Statement sentencia, admUser u, String idServ, boolean sobreEscribe){
 		  
 		  if (null != u){
 			  

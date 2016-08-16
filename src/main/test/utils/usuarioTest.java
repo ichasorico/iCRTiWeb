@@ -20,6 +20,8 @@ import javax.sql.DataSource;
 import org.junit.Before;
 import org.junit.Test;
 
+import users.admUser;
+
 
 public class usuarioTest {
 
@@ -59,7 +61,7 @@ public class usuarioTest {
 
 
 	    	try  {
-	    		InputStream input = classLoader.getResourceAsStream("system_icrti.properties");
+	    		InputStream input = classLoader.getResourceAsStream("system_icrtiweb.properties");
 	    		properties.load(input);
 	    		
 				Class.forName (properties.getProperty("driverClassName")).newInstance ();			
@@ -132,8 +134,8 @@ public class usuarioTest {
 	    {
 	    	
 
-	    	usuario u1 = new usuario(sentencia,usuario1, pwdUsuario1);
-    		usuario u2 = new usuario(sentencia, usuario2, pwdUsuario2);	  
+	    	admUser u1 = new admUser(sentencia,usuario1, pwdUsuario1);
+    		admUser u2 = new admUser(sentencia, usuario2, pwdUsuario2);	  
 	    	//assertEquals(u1,u2);
 	    	//assertEquals(u1.getIdUsuario(), u2.getIdUsuario());
 	    	assertEquals(u1.isUserOk(), u2.isUserOk());
@@ -144,7 +146,7 @@ public class usuarioTest {
 	    public void testUser1()
 	    {	    	
 
-    		usuario u1 = new usuario(sentencia,usuario1, pwdUsuario1);	    	
+    		admUser u1 = new admUser(sentencia,usuario1, pwdUsuario1);	    	
     		assertEquals( "validación idUsuario para Usuario.u1 ", u1.getIdUsuario(), idUsuario1);	       
 	    }
 	    
@@ -152,7 +154,7 @@ public class usuarioTest {
 	    public void testUser1isAdmin()
 	    {	    	
 
-    		usuario u1 = new usuario(sentencia,usuario1, pwdUsuario1);	    	
+    		admUser u1 = new admUser(sentencia,usuario1, pwdUsuario1);	    	
     		assertEquals( "validación userIsAdmin para Usuario.u1 ", u1.isAdmin(), usuario1IsAdmin);	       
 	    }
 	    
@@ -160,7 +162,7 @@ public class usuarioTest {
 	    public void testUser2isAdmin()
 	    {	    	
 
-    		usuario u2 = new usuario(sentencia,usuario2, pwdUsuario2);	    	
+    		admUser u2 = new admUser(sentencia,usuario2, pwdUsuario2);	    	
     		assertEquals( "validación userIsAdmin para Usuario.u2 ", u2.isAdmin(), usuario2IsAdmin);	       
 	    }
 	    
@@ -168,7 +170,7 @@ public class usuarioTest {
 	    public void testUser2()
 	    {
 
-    		usuario u2 = new usuario(sentencia, usuario2, pwdUsuario2);
+    		admUser u2 = new admUser(sentencia, usuario2, pwdUsuario2);
     		assertEquals( "validación idUsuario para Usuario.u2 ", u2.getIdUsuario(), idUsuario2);
 	       
 	    }
@@ -177,7 +179,7 @@ public class usuarioTest {
 	    public void testUserLoginFail()
 	    {
 
-    		usuario u3 = new usuario(sentencia, usuario3, pwdUsuario3);
+    		admUser u3 = new admUser(sentencia, usuario3, pwdUsuario3);
 	    	assertEquals(u3.isUserOk(), false);
 	       
 	    }
