@@ -108,5 +108,8 @@ public class webUser  {
 		
 	}
 
+	public void doEco(){
+		LOGGER.info("Usuario registrado");
+	}
 	
 }

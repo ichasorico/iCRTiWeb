@@ -19,6 +19,8 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    
+    
     <dependency>
     	<groupId>javax.servlet</groupId>
     	<artifactId>javax.servlet-api</artifactId>
@@ -208,7 +210,7 @@
 
     
   <ciManagement>
-  	<url>https:/trabajo/jenkins</url>
+  	<url>https:/trabajo.icrti.es/jenkins</url>
   	<system>iCRTi Local</system>
   </ciManagement>
   <scm>

@@ -152,6 +152,7 @@ public class ServMain extends HttpServlet {
 			}else{
 				
 				webUser wUser = new webUser(request,false);
+				wUser.doEco();
 				
 				//DETERMINAMOS SI ES UNA NAVEGACIÓN POR LOS RECURSOS DE LA WEB
 				if("X".equals(request.getParameter("operacion"))){

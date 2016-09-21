@@ -12,10 +12,15 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import utils.BCrypt;
 
 public class admUser {
 
+	private Logger LOGGER = LogManager.getLogger(admUser.class);
+	
 	private String id, nombre, idSesion, firma, passwd;
 	
 	private boolean isAdmin = false;	
@@ -79,8 +84,9 @@ public class admUser {
 					}
 					resultado.close();
 				}catch (Exception e){
-					System.out.println("usuario::getPerfiladoSeguridad("+user+" , "+pwd+")  -- EXCEPCIÓN AL BUSCAR ROLES USUARIO en bbdd. \n  ****************** " + sql);
-					e.printStackTrace();
+					LOGGER.error("getPerfiladoSeguridad("+user+" , "+pwd+")  -- EXCEPCIÓN AL BUSCAR ROLES USUARIO en bbdd. \n  ****************** " + sql +"\n",e);
+					//System.out.println("usuario::getPerfiladoSeguridad("+user+" , "+pwd+")  -- EXCEPCIÓN AL BUSCAR ROLES USUARIO en bbdd. \n  ****************** " + sql);
+					//e.printStackTrace();
 				}						
 				
 
@@ -104,24 +110,27 @@ public class admUser {
 						this.nombre = u;						
 						this.passwd = p;
 						this.firma = BCrypt.hashpw(p, BCrypt.gensalt(12));
-						System.out.println("usuario::validarUsuario FIRMA " + this.firma);
-
+						// System.out.println("usuario::validarUsuario FIRMA " + this.firma);
+						LOGGER.info("FIRMA " + this.firma);
 						
 						loginOK = BCrypt.checkpw(p, storedPassword);
-						System.out.println("usuario::validarUsuario("+u+" , "+p+")  -- Recupera storedPassword = " + storedPassword + " Validación " + loginOK);
+						//System.out.println("usuario::validarUsuario("+u+" , "+p+")  -- Recupera storedPassword = " + storedPassword + " Validación " + loginOK);
+						LOGGER.info("validarUsuario("+u+" , "+p+")  -- Recupera storedPassword = " + storedPassword + " Validación " + loginOK);
 					}while (resultado.next());
 				}else{
-					System.out.println("usuario::validarUsuario("+u+" , "+p+")  -- No se encuentra el usuario. LOGIN ERROR  \n  ****************** " + sql);
+					//System.out.println("usuario::validarUsuario("+u+" , "+p+")  -- No se encuentra el usuario. LOGIN ERROR  \n  ****************** " + sql);
+					LOGGER.info("validarUsuario("+u+" , "+p+")  -- No se encuentra el usuario. LOGIN ERROR  \n  ****************** " + sql);
 					loginOK = false;
 				}
 				resultado.close();
 				
 			} catch (SQLException e) {
-				System.out.println("usuario::validarUsuario("+u+" , "+p+")  -- No se encuentra el usuario. SQLException  \n  ****************** " + sql);
-				e.printStackTrace();			
+				// System.out.println("usuario::validarUsuario("+u+" , "+p+")  -- No se encuentra el usuario. SQLException  \n  ****************** " + sql);
+				LOGGER.error("validarUsuario("+u+" , "+p+")  -- No se encuentra el usuario. SQLException  \n  ****************** " + sql + "\n",e);
+			
 			}catch (Exception e){
-				System.out.println("usuario::validarUsuario("+u+" , "+p+")  -- No se encuentra el usuario. Exception  \n  ****************** " + sql);
-				e.printStackTrace();
+				//System.out.println("usuario::validarUsuario("+u+" , "+p+")  -- No se encuentra el usuario. Exception  \n  ****************** " + sql);
+				LOGGER.error("validarUsuario("+u+" , "+p+")  -- No se encuentra el usuario. Exception  \n  ****************** " + sql + "\n",e);
 			}
 			return loginOK;
 		}
@@ -155,10 +164,11 @@ public class admUser {
 			  }
 			  
 			  resultado = sentencia.executeQuery(sql);
-			  System.out.println("usuario::checkUserIsAdmin("+idUsuario+","+nombreUsuario+")  --  BUSCAMOS ROLES TIPO ADMIN PARA USUARIO\n  ****************** " + sql);
+			  // System.out.println("usuario::checkUserIsAdmin("+idUsuario+","+nombreUsuario+")  --  BUSCAMOS ROLES TIPO ADMIN PARA USUARIO\n  ****************** " + sql);
+			  LOGGER.info("checkUserIsAdmin("+idUsuario+","+nombreUsuario+")  --  BUSCAMOS ROLES TIPO ADMIN PARA USUARIO\n  ****************** " + sql);
 				resultado.first();
-				System.out.println("usuario::checkUserIsAdmin("+idUsuario+","+nombreUsuario+")  --  RECUPERAMOS "+Integer.parseInt(resultado.getString("cuenta"))+" ROLES TIPO ADMIN " );
-				
+				// System.out.println("usuario::checkUserIsAdmin("+idUsuario+","+nombreUsuario+")  --  RECUPERAMOS "+Integer.parseInt(resultado.getString("cuenta"))+" ROLES TIPO ADMIN " );
+				LOGGER.info("checkUserIsAdmin("+idUsuario+","+nombreUsuario+")  --  RECUPERAMOS "+Integer.parseInt(resultado.getString("cuenta"))+" ROLES TIPO ADMIN " );
 				if(1 <= Integer.parseInt(resultado.getString("cuenta"))){
 					resultado.close();
 					return true;
@@ -214,12 +224,14 @@ public class admUser {
 		if(	null != nombre && !"".equalsIgnoreCase(nombre) &&
 			null != id && !"".equalsIgnoreCase(id)  ){
 			
-			System.out.println("usuario::isUserOk  --  Validación corecta objeto: nombre " + this.nombre + " idUsuario = " + this.id + " isAdmin " + this.isAdmin);
+			// System.out.println("usuario::isUserOk  --  Validación corecta objeto: nombre " + this.nombre + " idUsuario = " + this.id + " isAdmin " + this.isAdmin);
+			LOGGER.info("usuario::isUserOk  --  Validación corecta objeto: nombre " + this.nombre + " idUsuario = " + this.id + " isAdmin " + this.isAdmin);
 			return true;
 			
 			
 		}else{
-			System.out.println("usuario::isUserOk  --  ERRORRRR Validación objeto: nombre " + this.nombre + " idUsuario = " + this.id + " isAdmin " + this.isAdmin);
+			// System.out.println("usuario::isUserOk  --  ERRORRRR Validación objeto: nombre " + this.nombre + " idUsuario = " + this.id + " isAdmin " + this.isAdmin);
+			LOGGER.info("usuario::isUserOk  --  ERRORRRR Validación objeto: nombre " + this.nombre + " idUsuario = " + this.id + " isAdmin " + this.isAdmin);
 			return false;
 		}
 	}
