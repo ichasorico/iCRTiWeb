@@ -6,7 +6,7 @@
   <packaging>war</packaging>
   <version>2.0.1-SNAPSHOT</version>
   <name>iCRTi Webapp</name>
-  <url>http://ww.icrti.es</url>
+  <url>http://www.icrti.es</url>
   <description>Proyecto Web iCRTi Consulting S.L.</description>
   <organization>
   	<name>iCRTi Consulting S.L.</name>
@@ -206,7 +206,13 @@
 
   </build>
   
-     
+  <distributionManagement>
+    <repository>
+      <id>nexus</id>
+      <name>Nexus Staging Repo</name>
+      <url>http://trabajo.icrti.es:8081/repository/maven-snapshots/</url>
+    </repository>
+  </distributionManagement>     
 
     
   <ciManagement>
