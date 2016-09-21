@@ -211,7 +211,7 @@
   <distributionManagement>
     <repository>
       <id>nexus</id>
-      <name>Nexus Staging Repo</name>
+      <name>Nexus en iCRTi</name>
       <url>http://trabajo.icrti.es:8081/repository/maven-snapshots/</url>
     </repository>
   </distributionManagement>     
