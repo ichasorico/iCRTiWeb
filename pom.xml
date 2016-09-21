@@ -208,15 +208,7 @@
 
   </build>
   
-  <distributionManagement>
-    <repository>
-      <id>nexus</id>
-      <name>Nexus en iCRTi</name>
-      <url>http://trabajo.icrti.es:8081/</url>
-    </repository>
-  </distributionManagement>     
 
-    
   <ciManagement>
   	<url>https:/trabajo.icrti.es/jenkins</url>
   	<system>iCRTi Local</system>
