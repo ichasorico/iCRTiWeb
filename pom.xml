@@ -4,7 +4,7 @@
   <groupId>iCRTiWeb</groupId>
   <artifactId>iCRTiWeb</artifactId>
   <packaging>war</packaging>
-  <version>2.2</version>
+  <version>2.2.1-SNAPSHOT</version>
   <name>iCRTi Webapp</name>
   <url>http://www.icrti.es</url>
   <description>Proyecto Web iCRTi Consulting S.L.</description>
