@@ -212,8 +212,14 @@
     <repository>
       <id>nexus</id>
       <name>Nexus en iCRTi</name>
-      <url>http://trabajo.icrti.es:8081/repository/maven-snapshots/</url>
+      <url>http://trabajo.icrti.es:8081/repository/maven-releases/</url>      
     </repository>
+    <snapshotRepository>
+    	<id>nexus</id>
+    	<name>Nexus en iCRTi</name>
+        <url>http://trabajo.icrti.es:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
+    
   </distributionManagement>     
 
     
