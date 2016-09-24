@@ -1,72 +1,75 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>iCRTiWeb</groupId>
-  <artifactId>iCRTiWeb</artifactId>
-  <packaging>war</packaging>
-  <version>2.2.1-SNAPSHOT</version>
-  <name>iCRTi Webapp</name>
-  <url>http://www.icrti.es</url>
-  <description>Proyecto Web iCRTi Consulting S.L.</description>
-  <organization>
-  	<name>iCRTi Consulting S.L.</name>
-  	<url>www.icrti.es</url>
-  </organization>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    
-    
-    <dependency>
-    	<groupId>javax.servlet</groupId>
-    	<artifactId>javax.servlet-api</artifactId>
-    	<version>3.0.1</version>
-    </dependency>
-    <dependency>
-    	<groupId>mysql</groupId>
-    	<artifactId>mysql-connector-java</artifactId>
-    	<version>5.1.6</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.sonarsource.scanner.maven</groupId>
-    	<artifactId>sonar-maven-plugin</artifactId>
-    	<version>3.0.1</version>
-    	<type>maven-plugin</type>
-    </dependency>
-    <dependency>
-    	<groupId>org.apache.maven.plugins</groupId>
-    	<artifactId>maven-war-plugin</artifactId>
-    	<version>2.6</version>
-    	<type>maven-plugin</type>
-    </dependency>
-    <dependency>
-    	<groupId>org.apache.logging.log4j</groupId>
-    	<artifactId>log4j-api</artifactId>
-    	<version>2.6.2</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.apache.logging.log4j</groupId>
-    	<artifactId>log4j-core</artifactId>
-    	<version>2.6.2</version>
-  </dependency>
-    <dependency>
-    	<groupId>org.liquibase</groupId>
-    	<artifactId>liquibase-maven-plugin</artifactId>
-    	<version>3.5.1</version>
-    </dependency>
-  </dependencies>
- <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+  	<modelVersion>4.0.0</modelVersion>
+  	<groupId>iCRTiWeb</groupId>
+  	<artifactId>iCRTiWeb</artifactId>  	
+  	<version>2.2.1-SNAPSHOT</version>
+  	<name>iCRTi Webapp</name>  	
+  	<description>Proyecto Web iCRTi Consulting S.L.</description>
+  	<url>http://www.icrti.es</url>
+  	<organization>
+  		<name>iCRTi Consulting S.L.</name>
+  		<url>www.icrti.es</url>
+  	</organization>
+  	
+  	
+ 	<properties>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	</properties>
+  
+  	<packaging>war</packaging>
   
   
   
   
-<profiles>
+	<profiles>
+	
+	
+		<profile>
+			<id>test-calidad-codigo-estatico</id>
+			<build>
+				<plugins>			
+					<plugin>
+   						<groupId>org.apache.maven.plugins</groupId>
+   						<artifactId>maven-compiler-plugin</artifactId>
+   						<executions>
+     						<execution>
+       							<id>default-compile</id>
+       							<phase>compile</phase>
+       							<goals>
+          							<goal>compile</goal>
+       							</goals>
+       							<configuration>
+         							<skipMain>true</skipMain>
+       							</configuration>
+     						</execution>
+   						</executions>
+					</plugin>
+				</plugins>			
+			</build>
+			
+			<dependencies>
+			    <dependency>
+    				<groupId>org.sonarsource.scanner.maven</groupId>
+    				<artifactId>sonar-maven-plugin</artifactId>
+    				<version>3.0.1</version>
+    				<type>maven-plugin</type>
+    			</dependency>				
+			</dependencies>
+	  		
+	  		<distributionManagement>
+			    <repository>
+			      	<id>nexus</id>
+			      	<name>Nexus en iCRTi</name>
+			      	<url>http://trabajo.icrti.es:8081/repository/maven-releases/</url>      
+			    </repository>    
+  			</distributionManagement>  			    		
+		</profile>
+	
+	
+	
+	
+	
    <profile>
      <id>pre-test</id>
      <build>
@@ -128,8 +131,57 @@
       		</executions>
     	</plugin>
     
-       </plugins>
+       </plugins>  
      </build>
+     
+    <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    
+    
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>javax.servlet-api</artifactId>
+    	<version>3.0.1</version>
+    </dependency>
+    <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>5.1.6</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.sonarsource.scanner.maven</groupId>
+    	<artifactId>sonar-maven-plugin</artifactId>
+    	<version>3.0.1</version>
+    	<type>maven-plugin</type>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.maven.plugins</groupId>
+    	<artifactId>maven-war-plugin</artifactId>
+    	<version>2.6</version>
+    	<type>maven-plugin</type>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.logging.log4j</groupId>
+    	<artifactId>log4j-api</artifactId>
+    	<version>2.6.2</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.logging.log4j</groupId>
+    	<artifactId>log4j-core</artifactId>
+    	<version>2.6.2</version>
+  </dependency>
+    <dependency>
+    	<groupId>org.liquibase</groupId>
+    	<artifactId>liquibase-maven-plugin</artifactId>
+    	<version>3.5.1</version>
+    </dependency>
+  </dependencies>
+       
    </profile>
   
   
@@ -168,6 +220,8 @@
      </build>
    </profile>
   </profiles>
+  
+  
   
    <build>
     <finalName>iCRTiWeb</finalName>
