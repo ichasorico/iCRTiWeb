@@ -19,7 +19,35 @@
   
   	<packaging>war</packaging>
   
-  
+   	<build>
+    	<finalName>iCRTiWeb</finalName>
+    	
+	 	<plugins> 
+    		<plugin>
+        		<artifactId>maven-compiler-plugin</artifactId>
+        		<version>3.5.1</version>
+        		<configuration>
+          			<source>1.8</source>
+          			<target>1.8</target>
+          			<encoding>UTF-8</encoding>
+        		</configuration>
+      		</plugin>      
+ 		</plugins>
+ 		
+  	</build>  
+    
+
+    
+  <ciManagement>
+  	<url>https:/trabajo.icrti.es/jenkins</url>
+  	<system>iCRTi Local</system>
+  </ciManagement>
+  <scm>
+  	<url>https://github.com/ichasorico/iCRTiWeb</url>
+  	<developerConnection>iCRTi Consulting S.L.</developerConnection>
+  </scm>
+
+
   
   
 	<profiles>
@@ -28,6 +56,13 @@
 		<profile>
 			<id>test-calidad-codigo-estatico</id>
 			<build>
+			
+			   <resources>
+        			<resource>
+            			<directory>src/main/resources</directory>
+            			<filtering>true</filtering>
+        			</resource>
+    			</resources>
 				<plugins>			
 					<plugin>
    						<groupId>org.apache.maven.plugins</groupId>
@@ -45,7 +80,7 @@
      						</execution>
    						</executions>
 					</plugin>
-				</plugins>			
+				</plugins>							
 			</build>
 			
 			<dependencies>
@@ -63,7 +98,9 @@
 			      	<name>Nexus en iCRTi</name>
 			      	<url>http://trabajo.icrti.es:8081/repository/maven-releases/</url>      
 			    </repository>    
-  			</distributionManagement>  			    		
+  			</distributionManagement>
+  			
+  			  			    		
 		</profile>
 	
 	
@@ -131,7 +168,18 @@
       		</executions>
     	</plugin>
     
-       </plugins>  
+       </plugins>
+       
+<!--        
+       <testSourceDirectory>src/main/test</testSourceDirectory>
+ -->   
+    <testResources>
+      <testResource>
+        <directory>src/main/test</directory>
+      </testResource>
+    </testResources>
+    
+      
      </build>
      
     <dependencies>
@@ -181,7 +229,18 @@
     	<version>3.5.1</version>
     </dependency>
   </dependencies>
-       
+       	<distributionManagement>
+    	<repository>
+      		<id>nexus</id>
+			<name>Nexus en iCRTi</name>
+      		<url>http://trabajo.icrti.es:8081/repository/maven-releases/</url>      
+    	</repository>
+		<snapshotRepository>
+    		<id>nexus</id>
+    		<name>Nexus en iCRTi</name>
+        	<url>http://trabajo.icrti.es:8081/repository/maven-snapshots/</url>
+    	</snapshotRepository>    
+  </distributionManagement> 
    </profile>
   
   
@@ -223,66 +282,6 @@
   
   
   
-   <build>
-    <finalName>iCRTiWeb</finalName>
-    
 
-
- <plugins>
- 
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-          <encoding>UTF-8</encoding>
-
-        </configuration>
-      </plugin>
-      
- </plugins>
-
-   <testSourceDirectory>src/main/test</testSourceDirectory>
-   
-    <testResources>
-      <testResource>
-        <directory>src/main/test</directory>
-      </testResource>
-    </testResources>
-    
-   <resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <filtering>true</filtering>
-        </resource>
-    </resources>
-    
-
-
-  </build>
   
-  <distributionManagement>
-    <repository>
-      <id>nexus</id>
-      <name>Nexus en iCRTi</name>
-      <url>http://trabajo.icrti.es:8081/repository/maven-releases/</url>      
-    </repository>
-    <snapshotRepository>
-    	<id>nexus</id>
-    	<name>Nexus en iCRTi</name>
-        <url>http://trabajo.icrti.es:8081/repository/maven-snapshots/</url>
-    </snapshotRepository>
-    
-  </distributionManagement>     
-
-    
-  <ciManagement>
-  	<url>https:/trabajo.icrti.es/jenkins</url>
-  	<system>iCRTi Local</system>
-  </ciManagement>
-  <scm>
-  	<url>https://github.com/ichasorico/iCRTiWeb</url>
-  	<developerConnection>iCRTi Consulting S.L.</developerConnection>
-  </scm>
 </project>
