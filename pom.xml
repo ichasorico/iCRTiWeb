@@ -222,18 +222,17 @@
 				
 		</dependencies>
 	  		
-       	<distributionManagement>
-	    	<repository>
-	      		<id>nexus</id>
-				<name>Nexus en iCRTi</name>
-	      		<url>http://trabajo.icrti.es:8081/repository/maven-releases/</url>      
-	    	</repository>
-			<snapshotRepository>
-	    		<id>nexus</id>
-	    		<name>Nexus en iCRTi</name>
-	        	<url>http://trabajo.icrti.es:8081/repository/maven-snapshots/</url>
-	    	</snapshotRepository>    
-		</distributionManagement>  		  			    		
+       	<distributionManagement>		</distributionManagement>
+       	
+	   	<pluginRepositories>
+        	<pluginRepository>
+          		<id>nexus</id>
+          		<url>http://trabajo.icrti.es:8081/repository/maven-public/</url>
+          		<releases><enabled>true</enabled></releases>
+          		<snapshots><enabled>true</enabled></snapshots>
+        	</pluginRepository>
+      	</pluginRepositories>
+      
 	</profile>	
 	
 	
