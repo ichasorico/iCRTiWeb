@@ -98,13 +98,138 @@
 			      	<name>Nexus en iCRTi</name>
 			      	<url>http://trabajo.icrti.es:8081/repository/maven-releases/</url>      
 			    </repository>    
-  			</distributionManagement>
-  			
-  			  			    		
+  			</distributionManagement>  			  			    		
 		</profile>
 	
 	
-	
+		<profile>
+			<id>test-jUnit</id>
+			<build>
+			       <!-- 
+			       <testSourceDirectory>src/main/test</testSourceDirectory>
+     				-->
+				<testResources>
+			    	<testResource>
+			        	<directory>src/main/test</directory>
+			      	</testResource>
+			  	</testResources>
+			  	
+				<resources>
+        			<resource>
+            			<directory>src/main/resources</directory>
+            			<filtering>true</filtering>
+        			</resource>
+    			</resources>
+				
+				<plugins>			
+         			<plugin>
+           				<artifactId>maven-antrun-plugin</artifactId>
+           				<executions>
+             			<execution>
+							<phase>validate</phase>
+               				<goals>
+                 				<goal>run</goal>
+               				</goals>
+               				<configuration>
+ 								<tasks>
+                   					<delete file="${project.build.outputDirectory}/system_icrtiweb.properties"/>
+                   					<copy file="src/main/resources/system_icrtiweb.dev.properties"
+                         				tofile="${project.build.outputDirectory}/system_icrtiweb.properties"/>
+                   
+					                  <!--  
+					                  <delete file="src/main/resources/system_icrtiweb.properties"/>
+					                   --> 
+					           		<copy file="src/main/resources/system_icrtiweb.dev.properties"
+					                	tofile="src/main/resources/system_icrtiweb.properties"/>                         
+					<!--                                         
+					                   <delete file="src/main/resources/system_icrtiweb.dev.properties"/>
+					                   <delete file="src/main/resources/system_icrtiweb.qua.properties"/>
+					                   
+					                   <delete file="${project.build.outputDirectory}/system_icrtiweb.dev.properties"/>
+					                   <delete file="${project.build.outputDirectory}/system_icrtiweb.qua.properties"/>
+					-->                             
+			                	</tasks>
+            		   		</configuration>
+             			</execution>
+           			</executions>
+        	 	</plugin> 
+         
+         		<plugin>
+	    	  		<groupId>org.liquibase</groupId>
+	      			<artifactId>liquibase-maven-plugin</artifactId>
+	      			<version>3.5.1</version>
+	      			<configuration>
+	        			<changeLogFile>src/main/resources/liquibase.icrtiweb.xml</changeLogFile>        		        		          
+			      		<diffChangeLogFile>src/main/resources/liquibase.icrtiweb.diffChangelog.xml</diffChangeLogFile>		          
+		          		<driver>com.mysql.jdbc.Driver</driver>
+		          		<username>${db.dev.username}</username>
+			          	<password>${db.dev.password}</password>
+			          	<url>${db.dev.connectionURL}/${db.dev.database}</url>
+			          	<referenceDriver>com.mysql.jdbc.Driver</referenceDriver>
+		    	      	<referenceUsername>root</referenceUsername>
+		        	  	<referencePassword>asteroide</referencePassword>
+		          		<referenceUrl>jdbc:mysql://localhost:3306/icrtiweb.local.dev.chaso</referenceUrl>          
+		          		<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>        	
+        			</configuration>
+      				<executions>
+        				<execution>
+          					<phase>test</phase>
+        				</execution>
+      				</executions>
+    			</plugin>
+			</plugins>							
+		</build>
+			
+		<dependencies>
+		
+		    <dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+				<scope>test</scope>
+		    </dependency>
+		    
+		    
+		    <dependency>
+		    	<groupId>javax.servlet</groupId>
+		    	<artifactId>javax.servlet-api</artifactId>
+		    	<version>3.0.1</version>
+		    </dependency>
+		    
+		    <dependency>
+		    	<groupId>mysql</groupId>
+		    	<artifactId>mysql-connector-java</artifactId>
+		    	<version>5.1.6</version>
+		    </dependency>
+		    
+		    <dependency>
+		    	<groupId>org.apache.logging.log4j</groupId>
+		    	<artifactId>log4j-api</artifactId>
+		    	<version>2.6.2</version>
+		    </dependency>
+		    
+		    <dependency>
+		    	<groupId>org.apache.logging.log4j</groupId>
+		    	<artifactId>log4j-core</artifactId>
+		    	<version>2.6.2</version>
+		  	</dependency>
+		  
+		  	<dependency>
+		    	<groupId>org.liquibase</groupId>
+		    	<artifactId>liquibase-maven-plugin</artifactId>
+		    	<version>3.5.1</version>
+			</dependency>
+				
+		</dependencies>
+	  		
+  		<distributionManagement>
+		    <repository>
+		      	<id>nexus</id>
+		      	<name>Nexus en iCRTi</name>
+		      	<url>http://trabajo.icrti.es:8081/repository/maven-releases/</url>      
+		    </repository>    
+ 		</distributionManagement>  			  			    		
+	</profile>	
 	
 	
    <profile>
