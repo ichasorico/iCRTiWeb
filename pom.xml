@@ -122,71 +122,6 @@
     			</resources>
 				<plugins>
 				    			
-<!--			
-         			<plugin>
-           				<artifactId>maven-antrun-plugin</artifactId>
-           				<executions>
-             			<execution>
-							<phase>validate</phase>
-               				<goals>
-                 				<goal>run</goal>
-               				</goals>
-               				<configuration>
- 								<tasks>
-                   					<delete file="${project.build.outputDirectory}/system_icrtiweb.properties"/>
-                   					<copy file="src/main/resources/system_icrtiweb.dev.properties"
-                         				tofile="${project.build.outputDirectory}/system_icrtiweb.properties"/>
-                   
-  
-					                  <delete file="src/main/resources/system_icrtiweb.properties"/>
- 
-					           		<copy file="src/main/resources/system_icrtiweb.dev.properties"
-					                	tofile="src/main/resources/system_icrtiweb.properties"/>                         
-                                         
-					                   <delete file="src/main/resources/system_icrtiweb.dev.properties"/>
-					                   <delete file="src/main/resources/system_icrtiweb.qua.properties"/>
-					                   
-					                   <delete file="${project.build.outputDirectory}/system_icrtiweb.dev.properties"/>
-					                   <delete file="${project.build.outputDirectory}/system_icrtiweb.qua.properties"/>
-                             
-			                	</tasks>
-            		   		</configuration>
-             			</execution>
-           			</executions>
-        	 	</plugin> 
-   
-
-			      <plugin>
-			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId>maven-dependency-plugin</artifactId>
-			        <version>2.10</version>
-			        <executions>
-			          <execution>
-			            <id>copy</id>
-			            <phase>validate</phase>
-			            <goals>
-			              <goal>copy</goal>
-			            </goals>
-			            <configuration>
-			              <artifactItems>
-			                <artifactItem>
-			                  <groupId>iCRTiWeb</groupId>
-			                  <artifactId>icrtiweb.database.development</artifactId> 
-			                  <type>properties</type>			                  
-			                  <overWrite>true</overWrite>
-			                  <version>1.0.0</version>
-			                  <outputDirectory>src/main/resources</outputDirectory>
-			                  <destFileName>system_icrtiweb.properties</destFileName>
-			                </artifactItem>
-			              </artifactItems>
-			              <outputDirectory>src/main/resources</outputDirectory>
-			              <overWriteReleases>false</overWriteReleases>
-			              <overWriteSnapshots>true</overWriteSnapshots>
-			            </configuration>
-			          </execution>
-			        </executions>
-			      </plugin>
--->			            
     
          		<plugin>
 	    	  		<groupId>org.liquibase</groupId>
@@ -266,13 +201,6 @@
 		    	<artifactId>liquibase-maven-plugin</artifactId>
 		    	<version>3.5.1</version>
 			</dependency>
-<!-- 
-		  	<dependency>
-		    	<groupId>iCRTiWeb</groupId>
-		    	<artifactId>icrtiweb.database.development</artifactId>
-		    	<version>1.0.0</version>
-			</dependency>
--->
 		</dependencies>
 	  		
        	
