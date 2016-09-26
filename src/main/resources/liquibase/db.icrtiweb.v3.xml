@@ -11,7 +11,7 @@
             <column name="idusuario" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column defaultValueComputed="CURRENT_TIMESTAMP" name="fecha" type="datetime(6)" DEFAULT '0000-00-00 00:00:00' >
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="fecha" type="datetime(6)" DEFAULT="0000-00-00 00:00:00" >
                 <constraints nullable="false"/>
             </column>
         </createTable>
