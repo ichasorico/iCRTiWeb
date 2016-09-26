@@ -171,10 +171,8 @@
 			              <artifactItems>
 			                <artifactItem>
 			                  <groupId>iCRTiWeb</groupId>
-			                  <artifactId>icrtiweb.database.development</artifactId>
-<!-- 
-			                  <extension>properties</extension>
- -->			                  
+			                  <artifactId>icrtiweb.database.development</artifactId> 
+			                  <type>properties</type>			                  
 			                  <overWrite>true</overWrite>
 			                  <outputDirectory>src/main/resources</outputDirectory>
 			                  <destFileName>system_icrtiweb.properties</destFileName>
