@@ -35,7 +35,7 @@
  		</plugins> 		
 		<testResources>
 	    	<testResource>
-	        	<directory>src/main/test</directory>
+	        	<directory>src/test/java</directory>
 	      	</testResource>
 	  	</testResources>
 	  	
@@ -168,7 +168,7 @@
      				-->
 				<testResources>
 			    	<testResource>
-			        	<directory>src/main/test</directory>
+			        	<directory>src/test/java</directory>
 			      	</testResource>
 			  	</testResources>
 			  	
@@ -407,7 +407,7 @@
  -->   
     <testResources>
       <testResource>
-        <directory>src/main/test</directory>
+        <directory>src/test/java</directory>
       </testResource>
     </testResources>
     
