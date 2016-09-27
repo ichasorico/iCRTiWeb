@@ -25,9 +25,12 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Java/eclipse.workspace/iCRTiWeb/src/main/lib/log4j-api-2.6.2.jar"/>
-	<classpathentry kind="lib" path="C:/Java/eclipse.workspace/iCRTiWeb/src/main/lib/log4j-core-2.6.2.jar"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/main/test">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
@@ -38,5 +41,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Java/eclipse.workspace/iCRTiWeb/src/main/lib/iCRTiConfig.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

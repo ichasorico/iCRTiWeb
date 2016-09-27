@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
+//import java.util.Properties;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -24,6 +24,11 @@ import users.admUser;
 import users.webUser;
 import utils.TwoFactorAuthUtil;
 import utils.conexion;
+
+import iCRTiConfig.getCfg;
+
+
+
 /**
  * Servlet implementation class ServMain
  */
@@ -59,7 +64,17 @@ public class ServMain extends HttpServlet {
 
     	
     	
-    	initDB();
+    	try {
+			initDB();
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			
+			LOGGER.error("	Problema inicializando BBDD",e);
+	        ServletException servletEx = new ServletException( e.getMessage(  ) );
+	        servletEx.initCause( e );
+	        throw servletEx;
+			
+		}
+		
 
     	setValidezTimeStamp(getServletContext());
     	setIdServ(getServletContext());        
@@ -81,28 +96,30 @@ public class ServMain extends HttpServlet {
         
     }
     
-    private static void initDB(){
+    private static void initDB() throws InstantiationException, IllegalAccessException, ClassNotFoundException{
     	
+/*
     	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
     	InputStream input = classLoader.getResourceAsStream("system_icrtiweb.properties");
     	Properties properties = new Properties();
-
+*/
     	
-
+    	getCfg cfgTool = new getCfg("icrtiweb");
 		try {
-			properties.load(input);
-			Class.forName (properties.getProperty("driverClassName")).newInstance ();			
-			conn = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));			
-			LOGGER.info("INIT  -- CONEXIÓN A LA BBDD REALIZADA" + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password"));    	
+//			properties.load(input);
+//			Class.forName (properties.getProperty("driverClassName")).newInstance ();
+			Class.forName (cfgTool.read("driverClassName")).newInstance ();
+//			conn = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));
+			conn = DriverManager.getConnection (cfgTool.read("url") + "/" + cfgTool.read("database"), cfgTool.read("username"), cfgTool.read("password"));
 			
+//			LOGGER.info("INIT  -- CONEXIÓN A LA BBDD REALIZADA" + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password"));    	
+			LOGGER.info("INIT  -- CONEXIÓN A LA BBDD REALIZADA" + cfgTool.read("url") + "/" + cfgTool.read("database") + " " + cfgTool.read("username") + ":" + cfgTool.read("password"));
 			
-		} catch (IOException e1) {
-			LOGGER.error("INIT  -- ERROR AL REALIZAR LECTURA FICHERO PROPERTIES ", e1);
-
 
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			LOGGER.error("INIT  -- ERROR AL ESTABLECER driverClassName DESDE FICHERO PROPERTIES \n" + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password") ,e);
+//			LOGGER.error("INIT  -- ERROR AL ESTABLECER driverClassName DESDE FICHERO PROPERTIES \n" + properties.getProperty("url") + "/" + properties.getProperty("database") + " " + properties.getProperty("username") + ":" + properties.getProperty("password") ,e);
+			LOGGER.error("INIT  -- ERROR AL ESTABLECER driverClassName DESDE FICHERO PROPERTIES \n" + cfgTool.read("url") + "/" + cfgTool.read("database") + " " + cfgTool.read("username") + ":" + cfgTool.read("password") ,e);
 
 			
 		} catch (SQLException e) {

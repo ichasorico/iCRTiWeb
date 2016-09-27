@@ -31,21 +31,72 @@
           			<target>1.8</target>
           			<encoding>UTF-8</encoding>
         		</configuration>
-      		</plugin>      
- 		</plugins>
+      		</plugin>  			      		
+ 		</plugins> 		
+		<testResources>
+	    	<testResource>
+	        	<directory>src/main/test</directory>
+	      	</testResource>
+	  	</testResources>
+	  	
+		<resources>
+  			<resource>
+       			<directory>src/main/resources</directory>
+       			<filtering>true</filtering>
+   			</resource>
+		</resources>  
+ 		
  		
   	</build>  
+	<dependencies>    
+	    <dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+	    </dependency>
+	    
+	    
+	    <dependency>
+	    	<groupId>javax.servlet</groupId>
+	    	<artifactId>javax.servlet-api</artifactId>
+	    	<version>3.0.1</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>mysql</groupId>
+	    	<artifactId>mysql-connector-java</artifactId>
+	    	<version>5.1.6</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.apache.logging.log4j</groupId>
+	    	<artifactId>log4j-api</artifactId>
+	    	<version>2.6.2</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.apache.logging.log4j</groupId>
+	    	<artifactId>log4j-core</artifactId>
+	    	<version>2.6.2</version>
+	  	</dependency>
+	  
+	  	<dependency>
+	    	<groupId>org.liquibase</groupId>
+	    	<artifactId>liquibase-maven-plugin</artifactId>
+	    	<version>3.5.1</version>
+		</dependency>
+	</dependencies>
     
-
-    
-  <ciManagement>
-  	<url>https:/trabajo.icrti.es/jenkins</url>
-  	<system>iCRTi Local</system>
-  </ciManagement>
-  <scm>
-  	<url>https://github.com/ichasorico/iCRTiWeb</url>
-  	<developerConnection>iCRTi Consulting S.L.</developerConnection>
-  </scm>
+	<ciManagement>
+		<url>https:/trabajo.icrti.es/jenkins</url>
+		<system>iCRTi Local</system>
+	</ciManagement>
+	
+	<scm>
+		<url>https://github.com/ichasorico/iCRTiWeb</url>
+		<developerConnection>iCRTi Consulting S.L.</developerConnection>
+	</scm>
 
 
   
@@ -154,7 +205,7 @@
              			</execution>
            			</executions>
         	 	</plugin> 
--->   
+  
 
 			      <plugin>
 			        <groupId>org.apache.maven.plugins</groupId>
@@ -185,7 +236,7 @@
 			          </execution>
 			        </executions>
 			      </plugin>
-			            
+--> 			            
     
          		<plugin>
 	    	  		<groupId>org.liquibase</groupId>
@@ -357,6 +408,7 @@
      </build>
      
     <dependencies>
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -402,6 +454,7 @@
     	<artifactId>liquibase-maven-plugin</artifactId>
     	<version>3.5.1</version>
     </dependency>
+    
   </dependencies>
        	<distributionManagement>
     	<repository>
@@ -454,8 +507,8 @@
    </profile>
   </profiles>
   
-  
-  
+ 
+
 
   
 </project>
