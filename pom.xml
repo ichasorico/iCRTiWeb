@@ -230,7 +230,7 @@
 			                <artifactItem>
 			                  <groupId>iCRTiWeb</groupId>
 			                  <artifactId>iCRTiWeb.Int.Cfg</artifactId>
-			                  <extension>jar</extension>
+			                  <type>jar</type>
 			                  <overWrite>true</overWrite>
 			                  <outputDirectory>${project.build.directory}/lib</outputDirectory>
 			                  <destFileName>iCRTiWebConfig.jar</destFileName>
