@@ -159,7 +159,6 @@
   			</distributionManagement>  			  			    		
 		</profile>
 	
-	
 		<profile>
 			<id>test-jUnit</id>
 			<build>
