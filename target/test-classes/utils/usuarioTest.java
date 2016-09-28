@@ -12,7 +12,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
+//import java.util.Properties;
+import iCRTiConfig.getCfg;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -57,17 +58,23 @@ public class usuarioTest {
 	        LOGGER = LogManager.getLogger();
 	        
 	        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-	    	Properties properties = new Properties();
+	    	//Properties properties = new Properties();
+	        getCfg cfgTool = new getCfg("icrtiweb");
 
 
 	    	try  {
 	    		InputStream input = classLoader.getResourceAsStream("system_icrtiweb.properties");
-	    		properties.load(input);
+	    		//properties.load(input);
 	    		
-				Class.forName (properties.getProperty("driverClassName")).newInstance ();			
-				Connection connection = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));			
+				//Class.forName (properties.getProperty("driverClassName")).newInstance ();			
+				Class.forName (cfgTool.read("driverClassName")).newInstance ();
+				//Connection connection = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));
+				Connection connection = DriverManager.getConnection (cfgTool.read("url") + "/" + cfgTool.read("database"), cfgTool.read("username"), cfgTool.read("password"));
+				
 				sentencia = connection.createStatement();
-				LOGGER.info("initialize::Conexión a la BBDD realizada:  url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
+				//LOGGER.info("initialize::Conexión a la BBDD realizada:  url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
+				LOGGER.info("initialize::Conexión a la BBDD realizada:  url="+cfgTool.read("url") + "/database=" + cfgTool.read("database") + "/username="+ cfgTool.read("username") + "/password=" + cfgTool.read("password"));
+				
 	    		// OBTENEMOS idUsuario PARA USUARIO1
 	    		String sql = "select * from usuarios where nombre = '" + usuario1 +"'";
 	    		ResultSet resultado = sentencia.executeQuery(sql);
@@ -112,10 +119,7 @@ public class usuarioTest {
 	    		
 
 	    	} catch (SQLException e) {
-	    	    throw new IllegalStateException("Cannot connect the database!", e);
-	    	    
-	    	} catch (IOException e1) {
-	    		LOGGER.error("initialize::",e1);
+	    	    throw new IllegalStateException("Cannot connect the database!", e);	    	    
 	    		
 			} catch (InstantiationException e1) {
 				LOGGER.error("initialize::",e1);
