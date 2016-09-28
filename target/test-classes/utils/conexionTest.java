@@ -65,21 +65,14 @@ public class conexionTest {
 	    	getCfg cfgTool = new getCfg("icrtiweb");
 
 	    	try  {
-//	    		Connection connection = DriverManager.getConnection(url, username, password);
-	    		//InputStream input = classLoader.getResourceAsStream("system_icrtiweb.properties");
-	    		//properties.load(input);
 	    		
-				//Class.forName (properties.getProperty("driverClassName")).newInstance ();			
 				Class.forName (cfgTool.read("driverClassName")).newInstance ();
-				//Connection connection = DriverManager.getConnection (properties.getProperty("url") + "/" + properties.getProperty("database"), properties.getProperty("username"), properties.getProperty("password"));
 				Connection connection = DriverManager.getConnection (cfgTool.read("url") + "/" + cfgTool.read("database"), cfgTool.read("username"), cfgTool.read("password"));
 				
 				sentencia = connection.createStatement();
-				//LOGGER.info("conexionTest::initialize -> Conexión a la BBDD realizada:  url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"));
 				LOGGER.info("conexionTest::initialize -> Conexión a la BBDD realizada:  url="+cfgTool.read("url") + "/database=" + cfgTool.read("database") + "/username="+ cfgTool.read("username") + "/password=" + cfgTool.read("password"));
 				
 	    	}catch(Exception e){
-	    		//LOGGER.error("initialize url="+properties.getProperty("url") + "/database=" + properties.getProperty("database") + "/username="+ properties.getProperty("username") + "/password=" + properties.getProperty("password"),e);
 	    		LOGGER.error("initialize url="+cfgTool.read("url") + "/database=" + cfgTool.read("database") + "/username="+ cfgTool.read("username") + "/password=" + cfgTool.read("password"),e);
 	    	}	    	
 	    }
@@ -110,8 +103,6 @@ public class conexionTest {
 	    {
 	    	
 	    	admUser u3 = new admUser(sentencia,usuario3, pwdUsuario3);
-	    	//selloUsuario3 = u3.getFirma();
-	    	//conexion c = new conexion(sentencia, u3,idServidor,true);
 	    	assertNull(u3.getFirma());
 	    	/*
 	    	// VERFICIACIÓN SGBD
