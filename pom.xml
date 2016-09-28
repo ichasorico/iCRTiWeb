@@ -352,7 +352,7 @@
 	
 	
 	<profile>
-			<id>test-packWar</id>
+			<id>test-packWarFile</id>
 			<build>
 			       <!-- 
 			       <testSourceDirectory>src/test/java</testSourceDirectory>
