@@ -349,6 +349,115 @@
 	</profile>	
 	
 	
+	
+	
+	<profile>
+			<id>test-packWar</id>
+			<build>
+			       <!-- 
+			       <testSourceDirectory>src/test/java</testSourceDirectory>
+     				-->
+				<testResources>
+			    	<testResource>
+			        	<directory>src/test/java</directory>
+			      	</testResource>
+			  	</testResources>
+			  	
+				<resources>
+        			<resource>
+            			<directory>src/main/resources</directory>
+            			<filtering>true</filtering>
+        			</resource>
+    			</resources>
+				<plugins>
+				    			
+
+			      <plugin>
+			        <groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-dependency-plugin</artifactId>
+			        <version>2.10</version>
+			        <executions>
+			          <execution>
+			            <id>copy</id>
+			            <phase>process-resources</phase>
+			            <goals>
+			              <goal>copy</goal>
+			            </goals>
+			            <configuration>
+			              <artifactItems>
+			                <artifactItem>
+			                  <groupId>iCRTiWeb</groupId>
+			                  <artifactId>iCRTiWeb.Qua.Cfg</artifactId>
+			                  <version>1.0.0</version>
+			                  <type>jar</type>
+			                  <overWrite>true</overWrite>
+			                  <outputDirectory>${project.build.directory}/lib</outputDirectory>
+			                  <destFileName>iCRTiWebConfig.jar</destFileName>
+			                </artifactItem>
+			              </artifactItems>
+			              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+			              <overWriteReleases>true</overWriteReleases>
+			              <overWriteSnapshots>true</overWriteSnapshots>
+			            </configuration>
+			          </execution>
+			        </executions>
+			      </plugin>		    
+			      
+					<plugin>
+				    	<artifactId>maven-war-plugin</artifactId>
+				    	<version>3.0.0</version>
+				    	<configuration>
+				      		<packagingExcludes>
+				      			*.java
+				      			*Test.class
+				      		</packagingExcludes>
+				    	</configuration>
+				  </plugin>
+				  
+			</plugins>									
+		</build>
+		
+		<distributionManagement>
+			<repository>
+				<id>nexus</id>
+				<name>Releases</name>
+				<url>http://trabajo.icrti.es:8081/repository/maven-releases/</url>
+			</repository>
+			<snapshotRepository>
+				<id>nexus</id>
+				<name>Snapshot</name>
+				<url>http://trabajo.icrti.es:8081/repository/maven-snapshots/</url>
+			</snapshotRepository>
+		</distributionManagement>
+			
+		<dependencies>
+		
+		    
+			
+		  	<dependency>
+		    	<groupId>iCRTiWeb</groupId>
+		    	<artifactId>iCRTiWeb.Qua.Cfg</artifactId>
+		    	<version>1.0.0</version>
+			</dependency>			
+			
+		</dependencies>
+	  		
+       	
+	   	<pluginRepositories>
+        	<pluginRepository>
+          		<id>nexus</id>
+          		<url>http://trabajo.icrti.es:8081/repository/maven-public/</url>
+          		<releases><enabled>true</enabled></releases>
+          		<snapshots><enabled>true</enabled></snapshots>
+        	</pluginRepository>
+      	</pluginRepositories>
+      
+	</profile>		
+	
+	
+	
+	
+	
    <profile>
      <id>pre-test</id>
      <build>
